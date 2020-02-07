@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Keikaku Pet</string>
+    <string name="new_task_dialog_title">Add New Task</string>
+    <string name="save">Save</string>
+</resources>
