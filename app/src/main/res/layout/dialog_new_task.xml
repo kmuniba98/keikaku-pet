@@ -1,13 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/taskEditText"
-        android:layout_height="wrap_content"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+
+    <ScrollView
+        android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:inputType="text">
-    </EditText>
+        android:fillViewport="true">
 
-</LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:scrollbars="vertical"
+            android:scrollbarAlwaysDrawVerticalTrack="true"
+            android:background="#fff">
+
+            <EditText
+                android:id="@+id/taskEditText"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:hint="Task Name"
+                android:inputType="text"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true">
+            </EditText>
+
+            <DatePicker
+                android:id="@+id/datePicker"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_alignParentTop="true">
+            </DatePicker>
+
+            <TimePicker
+                android:id="@+id/timePicker"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_alignParentTop="true">
+            </TimePicker>
+
+        </LinearLayout>
+    </ScrollView>
+</FrameLayout>

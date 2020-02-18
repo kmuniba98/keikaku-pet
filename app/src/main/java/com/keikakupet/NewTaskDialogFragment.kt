@@ -4,21 +4,23 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
-import android.widget.EditText
+import android.widget.*
 import androidx.fragment.app.DialogFragment
-import org.w3c.dom.Text
+import java.util.*
+import java.util.Calendar.*
 
-class NewTaskDialogFragment: DialogFragment() {
+class NewTaskDialogFragment: DialogFragment(){
+    val taskDateTime = Calendar.getInstance()
+
     interface NewTaskDialogListener {
-        fun onDialogPositiveClick(dialog: DialogFragment, task: String)
+        fun onDialogPositiveClick(dialog: DialogFragment, taskName: String, taskDateTime: Calendar)
         fun onDialogNegativeClick(dialog: DialogFragment)
     }
 
-    var newTaskDialogListener: NewTaskDialogListener? = null
+    private var newTaskDialogListener: NewTaskDialogListener? = null
 
     companion object {
         fun newInstance(title: Int): NewTaskDialogFragment {
-
             val newTaskDialogFragment = NewTaskDialogFragment()
             val args = Bundle()
             args.putInt("dialog_title", title)
@@ -34,23 +36,37 @@ class NewTaskDialogFragment: DialogFragment() {
             builder.setTitle(title)
         }
 
-        val dialogView =
-            activity?.layoutInflater?.inflate(R.layout.dialog_new_task, null)
-        val task = dialogView?.findViewById<EditText>(R.id.taskEditText)
+        val dialogView = activity?.layoutInflater?.inflate(R.layout.dialog_new_task, null)
+
+        // get selected task name
+        //val taskName = dialogView?.findViewById<EditText>(R.id.taskEditText)?.text.toString()
+
+        // get selected task date
+        val datePicker = dialogView?.findViewById<DatePicker>(R.id.datePicker)
+        datePicker?.init(taskDateTime.get(Calendar.YEAR), taskDateTime.get(Calendar.MONTH),
+            taskDateTime.get(Calendar.DAY_OF_MONTH)
+        ){ view, year, month, day ->
+            taskDateTime.set(YEAR, year)
+            taskDateTime.set(MONTH, month)
+            taskDateTime.set(DAY_OF_MONTH, day)
+        }
+
+        // get selected task time
+        val timePicker = dialogView?.findViewById<TimePicker>(R.id.timePicker)
+        timePicker?.setOnTimeChangedListener { _, hourOfDay, minute ->
+            taskDateTime.set(HOUR_OF_DAY, hourOfDay)
+            taskDateTime.set(MINUTE, minute)
+            taskDateTime.set(SECOND, 0)
+        }
 
         builder.setView(dialogView)
-            .setPositiveButton(R.string.save, { dialog, id ->
-                newTaskDialogListener?.onDialogPositiveClick(this,
-                    task?.text.toString());
-            })
-            .setNegativeButton(android.R.string.cancel, { dialog,
-                                                          id ->
-                newTaskDialogListener?.onDialogNegativeClick(this)
-            })
+            .setPositiveButton(R.string.save, { dialog, id -> newTaskDialogListener?.onDialogPositiveClick(this, dialogView?.findViewById<EditText>(R.id.taskEditText)?.text.toString(), taskDateTime)})
+            .setNegativeButton(android.R.string.cancel, { dialog, id -> newTaskDialogListener?.onDialogNegativeClick(this)})
+
         return builder.create()
     }
 
-    override fun onAttach(activity: Activity) { // 6
+    override fun onAttach(activity: Activity) {
         super.onAttach(activity)
         try {
             newTaskDialogListener = activity as NewTaskDialogListener
