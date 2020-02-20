@@ -5,22 +5,27 @@ import android.database.sqlite.SQLiteOpenHelper
 import android.content.Context
 import android.content.ContentValues
 
+
+//the DBHandler is what creates, edits, and deletes the database
 class MyDBHandler(context: Context, name: String?,
                   factory: SQLiteDatabase.CursorFactory?, version: Int) :
     SQLiteOpenHelper(context, DATABASE_NAME,
         factory, DATABASE_VERSION) {
 
     //function to create the database
+    //execSQL is the method that actually creates the database
+    //onCreate just sets up what to send to that method
     override fun onCreate(db: SQLiteDatabase) {
         val CREATE_TASKS_TABLE = ("CREATE TABLE " +
                 TABLE_TASKS + "("
                 + COLUMN_NAME + "TEXT PRIMARY KEY," +
                 COLUMN_PRIORITY
-                + " TEXT," + COLUMN_DEADLINE + "TEXT" + ")")
+                + " INT," + COLUMN_DEADLINE + "TEXT" + ")")
         db.execSQL(CREATE_TASKS_TABLE)
     }
 
     //onUpgrade occurs when a new version number of database is found
+    //removes old database to create a new one
     override fun onUpgrade(
         db: SQLiteDatabase, oldVersion: Int,
         newVersion: Int
@@ -29,7 +34,7 @@ class MyDBHandler(context: Context, name: String?,
         onCreate(db)
 
     }
-
+    //declares constants for database name, version, and variables
     companion object {
 
         private val DATABASE_VERSION = 1
@@ -41,6 +46,9 @@ class MyDBHandler(context: Context, name: String?,
         val COLUMN_DEADLINE = "deadline"
     }
 
+    //input: instance of task class
+    //writable database provides a reference to the current database
+    //then use that reference to insert the object
     fun addTask(task: Task) {
 
         val values = ContentValues()
@@ -54,6 +62,8 @@ class MyDBHandler(context: Context, name: String?,
         db.close()
 
     }
+
+    //Have not yet added a query function yet
 
 }
 
