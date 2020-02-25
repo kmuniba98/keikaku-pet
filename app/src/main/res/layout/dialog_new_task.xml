@@ -42,6 +42,12 @@
                 android:layout_alignParentTop="true">
             </TimePicker>
 
+            <CheckBox
+                android:id="@+id/priorityCheckBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="high priority"/>
+
         </LinearLayout>
     </ScrollView>
 </FrameLayout>

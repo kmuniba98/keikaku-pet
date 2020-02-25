@@ -14,15 +14,17 @@ class ToDoListActivity : AppCompatActivity(), NewTaskDialogFragment.NewTaskDialo
 
     private var taskNames = arrayListOf<String>()
     private var taskDateTimes = arrayListOf<String>()
+    private var taskPriorities = arrayListOf<String>()
     private var listItems = arrayListOf<String>()
     private var listAdapter: ArrayAdapter<String>? = null
     private var listView: ListView? = null
 
-    override fun onDialogPositiveClick(dialog: DialogFragment, taskName:String, taskDateTime:Calendar) {
+    override fun onDialogPositiveClick(dialog: DialogFragment, taskName:String, taskDateTime:Calendar, taskPriority:String) {
         taskNames.add(taskName)
         var taskDateTimeStr = taskDateTime.getTime().toString()
         taskDateTimes.add(taskDateTimeStr)
-        listItems.add("$taskName\n$taskDateTimeStr")
+        taskPriorities.add(taskPriority)
+        listItems.add("$taskName\n$taskDateTimeStr\n$taskPriority")
         listAdapter?.notifyDataSetChanged()
 
         populateListView()
