@@ -38,9 +38,6 @@ class NewTaskDialogFragment: DialogFragment(){
 
         val dialogView = activity?.layoutInflater?.inflate(R.layout.dialog_new_task, null)
 
-        // get selected task name
-        //val taskName = dialogView?.findViewById<EditText>(R.id.taskEditText)?.text.toString()
-
         // get selected task date
         val datePicker = dialogView?.findViewById<DatePicker>(R.id.datePicker)
         datePicker?.init(taskDateTime.get(Calendar.YEAR), taskDateTime.get(Calendar.MONTH),
