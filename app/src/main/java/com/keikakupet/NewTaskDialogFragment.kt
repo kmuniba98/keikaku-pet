@@ -8,12 +8,16 @@ import android.widget.*
 import androidx.fragment.app.DialogFragment
 import java.util.*
 import java.util.Calendar.*
+import android.widget.Toast
+import android.widget.CheckBox
+
+
 
 class NewTaskDialogFragment: DialogFragment(){
     val taskDateTime = Calendar.getInstance()
 
     interface NewTaskDialogListener {
-        fun onDialogPositiveClick(dialog: DialogFragment, taskName: String, taskDateTime: Calendar)
+        fun onDialogPositiveClick(dialog:DialogFragment, taskName:String, taskDateTime:Calendar, taskPriority:String)
         fun onDialogNegativeClick(dialog: DialogFragment)
     }
 
@@ -38,8 +42,7 @@ class NewTaskDialogFragment: DialogFragment(){
 
         val dialogView = activity?.layoutInflater?.inflate(R.layout.dialog_new_task, null)
 
-        // get selected task name
-        //val taskName = dialogView?.findViewById<EditText>(R.id.taskEditText)?.text.toString()
+
 
         // get selected task date
         val datePicker = dialogView?.findViewById<DatePicker>(R.id.datePicker)
@@ -59,8 +62,15 @@ class NewTaskDialogFragment: DialogFragment(){
             taskDateTime.set(SECOND, 0)
         }
 
+        val priorityCheckBox = dialogView?.findViewById<CheckBox>(R.id.priorityCheckBox)
+        var taskPriority = "standard priority"
+        priorityCheckBox?.setOnCheckedChangeListener { buttonView, isChecked ->
+            taskPriority = if (isChecked) "high priority" else "standard priority"
+        }
+
+
         builder.setView(dialogView)
-            .setPositiveButton(R.string.save, { dialog, id -> newTaskDialogListener?.onDialogPositiveClick(this, dialogView?.findViewById<EditText>(R.id.taskEditText)?.text.toString(), taskDateTime)})
+            .setPositiveButton(R.string.save, { dialog, id -> newTaskDialogListener?.onDialogPositiveClick(this, dialogView?.findViewById<EditText>(R.id.taskEditText)?.text.toString(), taskDateTime, taskPriority)})
             .setNegativeButton(android.R.string.cancel, { dialog, id -> newTaskDialogListener?.onDialogNegativeClick(this)})
 
         return builder.create()
