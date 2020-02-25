@@ -64,6 +64,8 @@ class MyDBHandler(context: Context, name: String?,
     }
 
     //Have not yet added a query function yet
+    //fun findTask(task: Task){
+    //}
 
     //Misc notes for later
     //way to add object to databse: (inside of a fun newTask(view : View)
