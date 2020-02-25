@@ -1,6 +1,6 @@
 package com.keikakupet
 
-import androidx.appcompat.app.AppCompatActivity
+import  androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -10,13 +10,17 @@ import android.widget.ArrayAdapter
 import android.widget.ListView
 import java.util.*
 
-class ToDoListActivity : AppCompatActivity(), NewTaskDialogFragment.NewTaskDialogListener {
+class ToDoListActivity : AppCompatActivity(), NewTaskDialogFragment.NewTaskDialogListener, RemoveTaskDialogFragment.NewRemoveTaskDialogListener {
 
     private var taskNames = arrayListOf<String>()
     private var taskDateTimes = arrayListOf<String>()
     private var listItems = arrayListOf<String>()
     private var listAdapter: ArrayAdapter<String>? = null
     private var listView: ListView? = null
+    private var listItemsChecked = arrayListOf<Boolean>()
+    private var listItemsDelete = arrayListOf<Boolean>()
+
+
 
     override fun onDialogPositiveClick(dialog: DialogFragment, taskName:String, taskDateTime:Calendar) {
         taskNames.add(taskName)
