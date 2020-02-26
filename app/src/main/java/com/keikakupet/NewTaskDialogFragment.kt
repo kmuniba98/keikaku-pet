@@ -8,16 +8,13 @@ import android.widget.*
 import androidx.fragment.app.DialogFragment
 import java.util.*
 import java.util.Calendar.*
-import android.widget.Toast
 import android.widget.CheckBox
-
-
 
 class NewTaskDialogFragment: DialogFragment(){
     val taskDateTime = Calendar.getInstance()
 
     interface NewTaskDialogListener {
-        fun onDialogPositiveClick(dialog:DialogFragment, taskName:String, taskDateTime:Calendar, taskPriority:String)
+        fun onDialogPositiveClick(dialog:DialogFragment, task:Task)
         fun onDialogNegativeClick(dialog: DialogFragment)
     }
 
@@ -42,9 +39,7 @@ class NewTaskDialogFragment: DialogFragment(){
 
         val dialogView = activity?.layoutInflater?.inflate(R.layout.dialog_new_task, null)
 
-
-
-        // get selected task date
+        // get task date
         val datePicker = dialogView?.findViewById<DatePicker>(R.id.datePicker)
         datePicker?.init(taskDateTime.get(Calendar.YEAR), taskDateTime.get(Calendar.MONTH),
             taskDateTime.get(Calendar.DAY_OF_MONTH)
@@ -54,7 +49,7 @@ class NewTaskDialogFragment: DialogFragment(){
             taskDateTime.set(DAY_OF_MONTH, day)
         }
 
-        // get selected task time
+        // get task time
         val timePicker = dialogView?.findViewById<TimePicker>(R.id.timePicker)
         timePicker?.setOnTimeChangedListener { _, hourOfDay, minute ->
             taskDateTime.set(HOUR_OF_DAY, hourOfDay)
@@ -62,15 +57,20 @@ class NewTaskDialogFragment: DialogFragment(){
             taskDateTime.set(SECOND, 0)
         }
 
+        // get task priority
         val priorityCheckBox = dialogView?.findViewById<CheckBox>(R.id.priorityCheckBox)
         var taskPriority = "standard priority"
         priorityCheckBox?.setOnCheckedChangeListener { buttonView, isChecked ->
             taskPriority = if (isChecked) "high priority" else "standard priority"
         }
 
-
         builder.setView(dialogView)
-            .setPositiveButton(R.string.save, { dialog, id -> newTaskDialogListener?.onDialogPositiveClick(this, dialogView?.findViewById<EditText>(R.id.taskEditText)?.text.toString(), taskDateTime, taskPriority)})
+            .setPositiveButton(R.string.save, { dialog, id ->
+                // get task name
+                val taskName = dialogView?.findViewById<EditText>(R.id.taskEditText)?.text.toString()
+                // create task object
+                val task = Task(taskName, taskPriority, taskDateTime)
+                newTaskDialogListener?.onDialogPositiveClick(this, task)})
             .setNegativeButton(android.R.string.cancel, { dialog, id -> newTaskDialogListener?.onDialogNegativeClick(this)})
 
         return builder.create()

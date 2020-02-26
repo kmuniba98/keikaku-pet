@@ -1,14 +1,16 @@
 package com.keikakupet
 
+import java.util.*
+
 class Task {
 
     var name: String? = null
-    var priorityLevel: int = 0
-    var deadline: String? = null
+    var priority: String? = null
+    var deadline: Calendar = Calendar.getInstance()
 
-    constructor(name: String, priorityLevel: String, deadline: String){
+    constructor(name:String, priority:String, deadline:Calendar){
         this.name = name
-        this.priorityLevel = priorityLevel
+        this.priority = priority
         this.deadline = deadline
     }
 }

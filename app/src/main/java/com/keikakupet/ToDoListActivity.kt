@@ -8,25 +8,17 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_to_do_list.*
 import android.widget.ArrayAdapter
 import android.widget.ListView
-import java.util.*
 
 class ToDoListActivity : AppCompatActivity(), NewTaskDialogFragment.NewTaskDialogListener {
-
-    private var taskNames = arrayListOf<String>()
-    private var taskDateTimes = arrayListOf<String>()
-    private var taskPriorities = arrayListOf<String>()
+    private var tasks = arrayListOf<Task>()
     private var listItems = arrayListOf<String>()
     private var listAdapter: ArrayAdapter<String>? = null
     private var listView: ListView? = null
 
-    override fun onDialogPositiveClick(dialog: DialogFragment, taskName:String, taskDateTime:Calendar, taskPriority:String) {
-        taskNames.add(taskName)
-        var taskDateTimeStr = taskDateTime.getTime().toString()
-        taskDateTimes.add(taskDateTimeStr)
-        taskPriorities.add(taskPriority)
-        listItems.add("$taskName\n$taskDateTimeStr\n$taskPriority")
+    override fun onDialogPositiveClick(dialog: DialogFragment, task:Task) {
+        tasks.add(task)
+        listItems.add("${task.name}\n${task.deadline.getTime()}\n${task.priority}")
         listAdapter?.notifyDataSetChanged()
-
         populateListView()
         Snackbar.make(addTaskBtn, "Task Added Successfully", Snackbar.LENGTH_LONG).setAction("Action", null).show()
     }
