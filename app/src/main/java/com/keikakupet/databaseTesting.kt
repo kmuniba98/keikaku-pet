@@ -1,8 +1,9 @@
+/*
 package com.keikakupet
 
-//﻿package com.ebookfrenzy.database
 
-import android.support.v7.app.AppCompatActivity
+//import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle
 import android.view.View
 
@@ -17,16 +18,18 @@ class DatabaseActivity : AppCompatActivity() {
     fun newTask(view: View) {
         val dbHandler = MyDBHandler(this, null, null, 1)
 
-        val name = name.text.toString()
+        var name = name.text.toString()
 
-        val priorityLevel = priorityLevel
+        var priorityLevel = Integer.parseInt(priorityLevel)
 
-            Task(name.text.toString(), priorityLevel, deadline.text.toString() )
+        var deadline = deadline.text.toString()
+
+        var task = Task(name.text.toString(), priorityLevel, deadline.text.toString() )
 
         dbHandler.addTask(task)
-        name.setText("")
-        priorityLevel
-        deadline.setText("")
+        //name.setText("")
+        //priorityLevel
+        //deadline.setText("")
     }
 
     fun lookupTask(view: View) {
@@ -47,15 +50,13 @@ class DatabaseActivity : AppCompatActivity() {
     fun removeTask(view: View) {
         val dbHandler = MyDBHandler(this, null, null, 1)
 
-        val result = dbHandler.deleteTask(
-            name.text.toString())
+        val result = dbHandler.deleteTask(name.text.toString())
 
         if (result) {
             //I don't know what we do on the delete action yet
-            //productID.text = "Record Deleted"
-            //productName.setText("")
-            //productQuantity.setText("")
+            task.name = "Deleted"
         } else
             name.text = "No Match Found"
     }
 }
+*/

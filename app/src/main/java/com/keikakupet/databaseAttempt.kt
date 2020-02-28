@@ -34,6 +34,7 @@ class MyDBHandler(context: Context, name: String?,
         onCreate(db)
 
     }
+
     //declares constants for database name, version, and variables
     companion object {
 
@@ -64,9 +65,50 @@ class MyDBHandler(context: Context, name: String?,
     }
 
     //Have not yet added a query function yet
-    //fun findTask(task: Task){
-    //}
+    fun findTask(name: String): Task? {
+        val query =
+            "SELECT * FROM $TABLE_TASKS WHERE $COLUMN_NAME =  \"$name\""
+        val db = this.writableDatabase
 
+        val cursor = db.rawQuery(query, null)
+
+        var task: Task? = null
+
+        if (cursor.moveToFirst()) {
+            cursor.moveToFirst()
+
+            val name = cursor.getString(0)
+            val priorityLevel = Integer.parseInt(cursor.getString(1))
+            val deadline = cursor.getString(2)
+            task = Task(name, priorityLevel, deadline)
+            cursor.close()
+        }
+        db.close()
+        return task
+    }
+
+
+    fun deleteTask(name:String): Boolean {
+        var result = false
+
+        val query =
+            "SELECT * FROM $TABLE_TASKS WHERE $COLUMN_NAME = \"$name\""
+
+        val db = this.writableDatabase
+
+        val cursor = db.rawQuery(query, null)
+
+        if (cursor.moveToFirst()) {
+            val name = cursor.getString(0)
+            db.delete(TABLE_TASKS, COLUMN_NAME + " = ?",
+                arrayOf(name))
+            cursor.close()
+            result = true
+        }
+        db.close()
+        return result
+
+    }
     //Misc notes for later
     //way to add object to databse: (inside of a fun newTask(view : View)
     //dbHandler.addTask(task)
