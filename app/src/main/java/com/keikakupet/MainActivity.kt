@@ -16,9 +16,23 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         // display pet animation
-        val petAnimation = findViewById<ImageView>(R.id.petImageView).apply {
+        val petImageView = findViewById<ImageView>(R.id.petImageView).apply {
             setBackgroundResource(R.drawable.sample_pet_animation_list)
             petAnimation = background as AnimationDrawable
+        }
+
+        // display status bubble on click
+        val bubbleImageView = findViewById<ImageView>(R.id.bubbleImageView)
+        var bubbleVisible = false
+        petImageView.setOnClickListener{
+            if(!bubbleVisible) {
+                bubbleImageView.setImageResource(R.drawable.speech_bubble)
+                bubbleVisible = true
+            }
+            else{
+                bubbleImageView.setImageResource(android.R.color.transparent)
+                bubbleVisible = false
+            }
         }
 
         // launch ToDoListActivity
@@ -31,7 +45,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        petAnimation.start()
+        petAnimation.start() // start pet animation
     }
 
 }
