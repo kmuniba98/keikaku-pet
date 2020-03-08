@@ -2,10 +2,19 @@ package com.keikakupet
 
 import android.content.Intent
 import android.graphics.drawable.AnimationDrawable
+import android.graphics.drawable.ClipDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
+import androidx.core.app.ComponentActivity.ExtraData
+import androidx.core.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import android.widget.TextView
+import java.text.DecimalFormat
+import kotlin.text.Typography.tm
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -41,6 +50,18 @@ class MainActivity : AppCompatActivity() {
             val startIntent = Intent(this, ToDoListActivity::class.java)
             startActivity(startIntent)
         }
+
+        // health bar
+        val barImageView = findViewById<ImageView>(R.id.barImageView)
+        val barImageDrawable = barImageView.drawable as ClipDrawable
+        var healthPercent = 0.65
+        barImageDrawable.level = (10000 * healthPercent).toInt()
+
+        // health text
+        val df = DecimalFormat("##.##% HEALTH")
+        val formattedPercent = df.format(healthPercent)
+        val healthEditText = findViewById<TextView>(R.id.healthEditText)
+        healthEditText.setText(formattedPercent)
     }
 
     override fun onStart() {
