@@ -36,24 +36,32 @@ class MainActivity : AppCompatActivity() {
             NotificationManagerCompat.IMPORTANCE_DEFAULT, false,
             getString(R.string.app_name), "App notification channel.")
 
+        // get status (update later when we are pulling from database)
+        val statusList = mutableListOf(R.drawable.hungry, R.drawable.sick, R.drawable.tired)
+        val status = statusList.random()
+
         // display status bubble on click
         val bubbleImageView = findViewById<ImageView>(R.id.bubbleImageView)
+        val statusImageView = findViewById<ImageView>(R.id.statusImageView)
         var bubbleVisible = false
         petImageView.setOnClickListener{
-            createNotification(channelId, "this be a title", "this be content")
-            if(!bubbleVisible) {
+            createNotification(channelId, "this is a title", "this is content") // tests notifications
+
+            if(!bubbleVisible) { // if bubble isn't visible, click it display bubble and status
                 bubbleImageView.setImageResource(R.drawable.speech_bubble)
+                statusImageView.setImageResource(status)
                 bubbleVisible = true
             }
-            else{
+            else{ // otherwise, click it to make bubble and status transparent
                 bubbleImageView.setImageResource(android.R.color.transparent)
+                statusImageView.setImageResource(android.R.color.transparent)
                 bubbleVisible = false
             }
         }
 
         // launch ToDoListActivity
         val toDoListBtn = findViewById<Button>(R.id.toDoListBtn)
-        toDoListBtn.setOnClickListener {
+        toDoListBtn.setOnClickListener{
             val startIntent = Intent(this, ToDoListActivity::class.java)
             startActivity(startIntent)
         }
