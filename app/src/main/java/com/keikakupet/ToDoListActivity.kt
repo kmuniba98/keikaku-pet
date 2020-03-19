@@ -15,6 +15,7 @@ class ToDoListActivity : AppCompatActivity(), NewTaskDialogFragment.NewTaskDialo
     private var listAdapter: ArrayAdapter<String>? = null
     private var listView: ListView? = null
 
+    //uses NewTaskDialogFragment to repopulate list with new tasks
     override fun onDialogPositiveClick(dialog: DialogFragment, task:Task) {
         tasks.add(task)
         listItems.add("${task.name}\n${task.deadline.getTime()}\n${task.priority}")
@@ -23,14 +24,17 @@ class ToDoListActivity : AppCompatActivity(), NewTaskDialogFragment.NewTaskDialo
         Snackbar.make(addTaskBtn, "Task Added Successfully", Snackbar.LENGTH_LONG).setAction("Action", null).show()
     }
 
+    //does nothing but needs to be there
     override fun onDialogNegativeClick(dialog: DialogFragment) {
     }
 
+    //pops up NewTaskDialogFragment
     fun showNewTaskUI() {
-        val newFragment = NewTaskDialogFragment.newInstance(R.string.new_task_dialog_title)
+        val newFragment = NewTaskDialogFragment.newInstance(R.string.new_task_dialog_title) //name of the form
         newFragment.show(supportFragmentManager, "newtask")
     }
 
+    //applies listview to things in task list
     private fun populateListView() {
         listAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, listItems)
         listView?.adapter = listAdapter
@@ -39,12 +43,12 @@ class ToDoListActivity : AppCompatActivity(), NewTaskDialogFragment.NewTaskDialo
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_to_do_list)
-
+        //button to add new tasks
         val addTaskBtn = findViewById<FloatingActionButton>(R.id.addTaskBtn)
         addTaskBtn.setOnClickListener {
             showNewTaskUI()
         }
-
+        //finds listview tag in xml
         listView = findViewById(R.id.toDoListView)
     }
 }
