@@ -43,7 +43,7 @@ class MyDBHandler(context: Context, name: String?,
         val TABLE_TASKS = "tasks"
 
         val COLUMN_NAME = "name"
-        val COLUMN_PRIORITY = "priorityLevel"
+        val COLUMN_PRIORITY = "priority"
         val COLUMN_DEADLINE = "deadline"
     }
 
@@ -54,8 +54,9 @@ class MyDBHandler(context: Context, name: String?,
 
         val values = ContentValues()
         values.put(COLUMN_NAME, task.name)
-        values.put(COLUMN_PRIORITY, task.priorityLevel)
-        values.put(COLUMN_DEADLINE, task.deadline)
+        values.put(COLUMN_PRIORITY, task.priority)
+        //need to change/cast deadline to string here
+        values.put(COLUMN_DEADLINE, task.deadline.toString())
 
         val db = this.writableDatabase
 
@@ -80,7 +81,7 @@ class MyDBHandler(context: Context, name: String?,
             val name = cursor.getString(0)
             val priorityLevel = Integer.parseInt(cursor.getString(1))
             val deadline = cursor.getString(2)
-            task = Task(name, priorityLevel, deadline)
+            //task = Task(name, priority, deadline)
             cursor.close()
         }
         db.close()
@@ -88,7 +89,7 @@ class MyDBHandler(context: Context, name: String?,
     }
 
 
-    fun deleteTask(name:String): Boolean {
+    fun deleteTask(name: String): Boolean {
         var result = false
 
         val query =
@@ -100,8 +101,10 @@ class MyDBHandler(context: Context, name: String?,
 
         if (cursor.moveToFirst()) {
             val name = cursor.getString(0)
-            db.delete(TABLE_TASKS, COLUMN_NAME + " = ?",
-                arrayOf(name))
+            db.delete(
+                TABLE_TASKS, COLUMN_NAME + " = ?",
+                arrayOf(name)
+            )
             cursor.close()
             result = true
         }
@@ -112,5 +115,6 @@ class MyDBHandler(context: Context, name: String?,
     //Misc notes for later
     //way to add object to databse: (inside of a fun newTask(view : View)
     //dbHandler.addTask(task)
+
 }
 
