@@ -10,15 +10,17 @@ import android.widget.ArrayAdapter
 import android.widget.ListView
 
 class ToDoListActivity : AppCompatActivity(), NewTaskDialogFragment.NewTaskDialogListener {
-    private var tasks = arrayListOf<Task>()
-    private var listItems = arrayListOf<String>()
+    //private var tasks = arrayListOf<Task>()
+    //private var listItems = arrayListOf<String>()
     private var listAdapter: ArrayAdapter<String>? = null
     private var listView: ListView? = null
+    private var taskListAdapter: ItemListAdapter ? = null
+    private var taskList: ArrayList<Task> ? = null
 
     //uses NewTaskDialogFragment to repopulate list with new tasks
     override fun onDialogPositiveClick(dialog: DialogFragment, task:Task) {
-        tasks.add(task)
-        listItems.add("${task.name}\n${task.deadline.getTime()}\n${task.priority}")
+        taskList?.add(task)
+        //listItems.add("${task.name}\n${task.deadline.getTime()}\n${task.priority}")
         listAdapter?.notifyDataSetChanged()
         populateListView()
         Snackbar.make(addTaskBtn, "Task Added Successfully", Snackbar.LENGTH_LONG).setAction("Action", null).show()
@@ -36,19 +38,29 @@ class ToDoListActivity : AppCompatActivity(), NewTaskDialogFragment.NewTaskDialo
 
     //applies listview to things in task list
     private fun populateListView() {
-        listAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, listItems)
-        listView?.adapter = listAdapter
+        //listAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, listItems)
+        //listView?.adapter = listAdapter
+            taskList = ArrayList()
+            taskListAdapter = ItemListAdapter(applicationContext, taskList!!)
+            listView?.adapter  = taskListAdapter
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_to_do_list)
+
+        listView = findViewById(R.id.toDoListView)
+        taskList = ArrayList()
+        taskListAdapter = ItemListAdapter(applicationContext, taskList!!)
+        listView?.adapter  = taskListAdapter
         //button to add new tasks
         val addTaskBtn = findViewById<FloatingActionButton>(R.id.addTaskBtn)
         addTaskBtn.setOnClickListener {
             showNewTaskUI()
         }
+
+
+
         //finds listview tag in xml
-        listView = findViewById(R.id.toDoListView)
     }
 }
