@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
 
         // display pet animation
         val petImageView = findViewById<ImageView>(R.id.petImageView).apply {
-            setBackgroundResource(R.drawable.sample_pet_animation_list)
+            setBackgroundResource(R.drawable.baby_pet_animation_list)
             petAnimation = background as AnimationDrawable
         }
 
