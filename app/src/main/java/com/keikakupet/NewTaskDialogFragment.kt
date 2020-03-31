@@ -31,12 +31,13 @@ class NewTaskDialogFragment: DialogFragment(){
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+
+        // building the dialog
         val title = arguments?.getInt("dialog_title")
         val builder = AlertDialog.Builder(activity)
         if (title != null) {
             builder.setTitle(title)
         }
-
         val dialogView = activity?.layoutInflater?.inflate(R.layout.dialog_new_task, null)
 
         // get task date
@@ -64,6 +65,7 @@ class NewTaskDialogFragment: DialogFragment(){
             taskPriority = if (isChecked) "high priority" else "standard priority"
         }
 
+        // create a task object with inputted data and send it to ToDoListActivity
         builder.setView(dialogView)
             .setPositiveButton(R.string.save, { dialog, id ->
                 // get task name
