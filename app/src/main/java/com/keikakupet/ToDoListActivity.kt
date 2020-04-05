@@ -29,7 +29,6 @@ class ToDoListActivity : AppCompatActivity(), NewTaskDialogFragment.NewTaskDialo
         //unresolved reference is now on addTask
         //myDB.addTask(task)
         DBHelper.addTask(task)
-
         listItems.add("${task.name}\n${task.deadline.getTime()}\n${task.priority}")
         listAdapter?.notifyDataSetChanged()
         populateListView()
