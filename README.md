@@ -1,6 +1,6 @@
 # keikaku-pet
 
-<insert description here>
+insert description here
 
 ## Getting Started
 
@@ -8,15 +8,15 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Installing
 
-<insert instructions for installation here>
+-insert instructions for installation here
 
 ### Starting the Application
 
-<insert instructions for starting the application here>
+insert instructions for starting the application here
 
 ## Deployment
 
-<insert instructions for deploying the application here>
+insert instructions for deploying the application here
 
 ## Built With
 
