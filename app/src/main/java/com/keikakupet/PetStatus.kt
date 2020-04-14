@@ -1,28 +1,57 @@
 package com.keikakupet
 
+import android.content.Context
+import android.util.Log
+import com.google.gson.Gson
+import java.io.File
 import java.util.*
+import java.io.BufferedReader
 
-class PetStatus {
+class PetStatus(
+    var maxHealth: Int = 10,var currentHealth: Int = 10,
+    var healthIncrementer: Int = 2, // amount by which health increments when a task is completed
+    var healthDecrementer: Int = 0, // amount by which health decrements when user approaches / misses deadline
+    var isHungry: Boolean = false,
+    var isTired: Boolean = false,
+    var isSick: Boolean = false,
+    var isAlive: Boolean = true) {
 
-    private var maxHealth: Int = 10
-    private var currentHealth: Int = 10
-    private var healthIncrementer: Int = 2 // amount by which health increments when a task is completed
-    private var healthDecrementer: Int = 0 // amount by which health decrements when user approaches / misses deadline
-    private var isHungry: Boolean = false
-    private var isTired: Boolean = false
-    private var isSick: Boolean = false
-    private var isAlive: Boolean = true
+    companion object {
+
+        lateinit var context: Context // getters and setters for java are automatically generated
+
+        operator fun invoke(): PetStatus {
+            //if a json exists, use it to update PetStatus
+            val context = context
+            var file = File(context.getFilesDir(), "PetStatus.json")
+            if(file.exists()){
+                val bufferedReader: BufferedReader = file.bufferedReader()
+                val json = bufferedReader.readText()
+                val retrievedStatus = Gson().fromJson(json, PetStatus::class.java)
+                Log.d("JSON_FROM_FILE", json)
+                return retrievedStatus
+            } else {
+                return PetStatus()
+            }
+        }
+    }
 
     // method to update pet's health and ailment upon completing a task
     fun processCompletedTask(){
         incrementHealth()
         removeAilment()
+        Log.d("TASK_COMPLETE", "completed task processed")
+    }
+
+    fun getHealthPercent(): Double {
+        return currentHealth.toDouble() / maxHealth
     }
 
     // method to update pet's health and ailment upon missing a task
     fun processMissedTask(){
         decrementHealth()
         addAilment()
+        Log.d("TASK_MISSED", "missed task processed")
     }
 
     /*
@@ -35,6 +64,7 @@ class PetStatus {
         currentHealth-=healthDecrementer
         if(currentHealth <= 0)
             isAlive = false
+        updateJson()
     }
 
     // method to increment the pet's health
@@ -44,6 +74,7 @@ class PetStatus {
             currentHealth = maxHealth
         else
             currentHealth = sum
+        updateJson()
     }
 
     // method to add an ailment to the pet
@@ -74,8 +105,11 @@ class PetStatus {
             isSick = true
             healthDecrementer = 3
         }
+
+        updateJson()
     }
 
+    // method to remove an ailment from the pet
     private fun removeAilment(){
         // if sick, remove sick
         if(isSick){
@@ -103,5 +137,16 @@ class PetStatus {
             isTired = false
             healthDecrementer = 0
         }
+
+        updateJson()
     }
+
+    fun updateJson(){
+        var json: String = Gson().toJson(this)
+        val context = context
+        var file = File(context.getFilesDir(), "PetStatus.json")
+        file.writeText(json)
+        Log.d("JSON_UPDATED", json)
+    }
+
 }
