@@ -20,8 +20,8 @@ insert instructions for deploying the application here
 
 ## Built With
 
-* [Android Studio](https://developer.android.com/studio) - The official IDE for Google's Android operating system. It is designed for Android development and is built on JetBrains' IntelliJ IDEA
-* [Kotlin](https://kotlinlang.org/) - A statically typed, general-purpose programming language with type inference. It compiles to JVM bytecode or JavaScript, and is widely used for Android development. 
+* [Android Studio](https://developer.android.com/studio) - The official IDE for Google's Android operating system, built on JetBrains' IntelliJ IDEA.
+* [Kotlin](https://kotlinlang.org/) - A general-purpose programming language that compiles to JVM bytecode and is widely used for Android development. 
 
 ## Authors
 
