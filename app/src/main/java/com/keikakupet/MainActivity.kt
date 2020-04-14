@@ -10,6 +10,7 @@ import android.graphics.drawable.ClipDrawable
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -20,10 +21,14 @@ import java.text.DecimalFormat
 class MainActivity : AppCompatActivity() {
 
     private lateinit var petAnimation: AnimationDrawable
+    private lateinit var petStatus: PetStatus
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        PetStatus.context = applicationContext
+        petStatus = PetStatus()
 
         // display pet animation
         val petImageView = findViewById<ImageView>(R.id.petImageView).apply {
@@ -69,7 +74,7 @@ class MainActivity : AppCompatActivity() {
         // health bar
         val barImageView = findViewById<ImageView>(R.id.barImageView)
         val barImageDrawable = barImageView.drawable as ClipDrawable
-        var healthPercent = 0.65
+        var healthPercent = petStatus.getHealthPercent()
         barImageDrawable.level = (10000 * healthPercent).toInt()
 
         // health text
