@@ -8,7 +8,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Installing
 
--insert instructions for installation here
+insert instructions for installation here
 
 ### Starting the Application
 
