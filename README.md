@@ -8,6 +8,9 @@ These instructions will get you a copy of the project up and running on your loc
 
 1. Download Android Studio
 2. Clone this repository into Android Studio 
+   *[Here](https://www.howtogeek.com/451360/how-to-clone-a-github-repository/) is link from How to Geek to Clone a Repository
+   *Click: File > New > Project from Version Control... > Git
+      *Then choose your save location folder and name for project on your local device and click "Clone". 
 3. Install Emulator or Set up Android Device in developer mode 
 
 ### Installing
@@ -21,11 +24,13 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Starting the Application
 
-insert instructions for starting the application here
+1. Build your applcation by clicking the little hammer (or pres Ctrl + F9)
+2. Run your application by clicking the green play button (or press SHIFT + F10)
+  *This will start the applicatio on your emulator or Android device
 
 ## Deployment
 
-insert instructions for deploying the application here
+*wait for the application to start on your screen and start clicking on buttons to boost your productivity
 
 ## Built With
 
