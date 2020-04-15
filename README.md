@@ -19,17 +19,14 @@ These instructions will get you a copy of the project up and running on your loc
 * [Here is link to official download](https://developer.android.com/studio) for Android Studio.
 2. Emulator 
 * [Here is a documentation from Android on how to run an emulator](https://developer.android.com/studio/run/emulator) through Android Studio.
-3. Android device in developer mode*[Guide from How To Geek] (https://www.howtogeek.com/129728/how-to-access-the-developer-options-menu-and-enable-usb-debugging-on-android-4.2/) has a good amount of images to help the process along. 
+3. Android device in developer mode
+* [Guide from How To Geek] (https://www.howtogeek.com/129728/how-to-access-the-developer-options-menu-and-enable-usb-debugging-on-android-4.2/) has a good amount of images to help the process along. 
 
 ### Starting the Application
 
 1. Build your applcation by clicking the little hammer (or pres Ctrl + F9)
 2. Run your application by clicking the green play button (or press SHIFT + F10)
 * This will start the applicatio on your emulator or Android device
-
-## Deployment
-
-* Wait for the application to start on your screen and start clicking on buttons to boost your productivity
 
 ## Built With
 
