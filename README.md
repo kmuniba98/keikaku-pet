@@ -1,6 +1,6 @@
 # keikaku-pet
 
-insert description here
+In Japanese, the word "keikaku" means plan. Kekaku Pet is a productivity app to help you plan your day. You can create a to do list in app and mark each task for completion or deletion. You will take care of a virtual pet by completing your tasks. Should you fail to complete your task, your pet will get hungry, tired, or sick. Your pet will also lose health points (hp) for each uncompleted task. And will gain hp for every completed task. You can set deadlines and priority to make sure you get the most important things done first. If you fail to take care of your pet enough, they may even die! (not yet implemented, but your pet will still suffer) So make sure to get your tasks done in a timely manner!
 
 ## Getting Started
 
