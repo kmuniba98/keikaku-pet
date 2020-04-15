@@ -6,9 +6,18 @@ In Japanese, the word "keikaku" means plan. Kekaku Pet is a productivity app to 
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
+1. Download Android Studio
+2. Clone this repository into Android Studio 
+3. Install Emulator or Set up Android Device in developer mode 
+
 ### Installing
 
-insert instructions for installation here
+1. Android Studio
+  *[Here is link to official download](https://developer.android.com/studio) for Android Studio.
+2. Emulator 
+  *[Here is a documentation from Android on how to run an emulator](https://developer.android.com/studio/run/emulator) through Android Studio.
+3. Android device in developer mode
+  *[Guide from How To Geek] (https://www.howtogeek.com/129728/how-to-access-the-developer-options-menu-and-enable-usb-debugging-on-android-4.2/) has a good amount of images to help the process along. 
 
 ### Starting the Application
 
