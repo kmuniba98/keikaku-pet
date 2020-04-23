@@ -14,7 +14,6 @@ class NewTaskDialogFragment: DialogFragment(){
     val taskDateTime = Calendar.getInstance()
 
     interface NewTaskDialogListener {
-
         fun onDialogPositiveClick(dialog:DialogFragment, task:Task)
         fun onDialogNegativeClick(dialog: DialogFragment)
     }
@@ -37,7 +36,6 @@ class NewTaskDialogFragment: DialogFragment(){
         if (title != null) {
             builder.setTitle(title)
         }
-
 
         val dialogView = activity?.layoutInflater?.inflate(R.layout.dialog_new_task, null)
 
@@ -74,7 +72,6 @@ class NewTaskDialogFragment: DialogFragment(){
                 val task = Task(taskName, taskPriority, taskDateTime)
                 newTaskDialogListener?.onDialogPositiveClick(this, task)})
             .setNegativeButton(android.R.string.cancel, { dialog, id -> newTaskDialogListener?.onDialogNegativeClick(this)})
-
 
         return builder.create()
     }

@@ -4,6 +4,7 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.content.Context
 import android.content.ContentValues
+import android.database.Cursor
 
 
 //the DBHandler is what creates, edits, and deletes the database
@@ -65,8 +66,8 @@ class MyDBHandler(context: Context, name: String?,
 
     }
 
-    //Have not yet added a query function yet
-    fun findTask(name: String): Task? {
+
+    fun findTask(name: String?): Task? {
         val query =
             "SELECT * FROM $TABLE_TASKS WHERE $COLUMN_NAME =  \"$name\""
         val db = this.writableDatabase
@@ -86,6 +87,11 @@ class MyDBHandler(context: Context, name: String?,
         }
         db.close()
         return task
+    }
+
+    fun getAllRow(): Cursor? {
+        val db = this.readableDatabase
+        return db.rawQuery("SELECT * FROM $TABLE_TASKS", null)
     }
 
 
@@ -112,9 +118,7 @@ class MyDBHandler(context: Context, name: String?,
         return result
 
     }
-    //Misc notes for later
-    //way to add object to databse: (inside of a fun newTask(view : View)
-    //dbHandler.addTask(task)
+
 
 }
 
