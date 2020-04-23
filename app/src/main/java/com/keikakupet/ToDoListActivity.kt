@@ -1,12 +1,15 @@
 package com.keikakupet
 
 import androidx.appcompat.app.AppCompatActivity
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_to_do_list.*
 import android.widget.ListView
+import java.util.*
+
 
 class ToDoListActivity : AppCompatActivity(), NewTaskDialogFragment.NewTaskDialogListener {
     //doesn't instantiate, just makes variable names accessible across functions
@@ -42,6 +45,7 @@ class ToDoListActivity : AppCompatActivity(), NewTaskDialogFragment.NewTaskDialo
     private fun populateListView() {
             taskListAdapter = ItemListAdapter(applicationContext, taskList!!)
             listView?.adapter  = taskListAdapter
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,6 +59,21 @@ class ToDoListActivity : AppCompatActivity(), NewTaskDialogFragment.NewTaskDialo
         val addTaskBtn = findViewById<FloatingActionButton>(R.id.addTaskBtn)
         addTaskBtn.setOnClickListener {
             showNewTaskUI()
+        }
+        if(taskList != null) {
+            var immTaskList: ArrayList<Task> = this.taskList!!
+            var size: Int = immTaskList.size
+            for (i in 1..size) {
+                var checkTask: Task = immTaskList.get(i)
+                var taskDeadline: Long = checkTask.deadline.timeInMillis
+                var currTime: Long = Calendar.getInstance().timeInMillis
+                var elapsedTime: Long = currTime - taskDeadline
+                if (elapsedTime < 0) {
+                    PetStatus.context = applicationContext
+                    val petStatus = PetStatus()
+                    petStatus.processMissedTask()
+                }
+            }
         }
 
     }

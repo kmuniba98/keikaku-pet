@@ -25,6 +25,10 @@ class ItemListAdapter (var context: Context, var taskList: ArrayList<Task>): Bas
         return taskList.size
      }
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
+
+        PetStatus.context = context
+        val petStatus = PetStatus()
+
         val view:View = View.inflate(context , R.layout.listview_checkbox, null)
 
         //sets up variables and links them to id's set in xml
@@ -52,6 +56,7 @@ class ItemListAdapter (var context: Context, var taskList: ArrayList<Task>): Bas
         checkBx.setOnClickListener(View.OnClickListener {
             //removes from task list
             taskList.removeAt(position)
+            petStatus.processCompletedTask()
             notifyDataSetChanged()
         })
 

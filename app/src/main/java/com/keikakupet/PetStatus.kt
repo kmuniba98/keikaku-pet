@@ -68,7 +68,7 @@ class PetStatus(
     }
 
     // method to increment the pet's health
-    private fun incrementHealth(){
+    fun incrementHealth(){
         val sum = currentHealth + healthIncrementer
         if(sum > maxHealth)
             currentHealth = maxHealth
@@ -141,7 +141,7 @@ class PetStatus(
         updateJson()
     }
 
-    fun updateJson(){
+    private fun updateJson(){
         var json: String = Gson().toJson(this)
         val context = context
         var file = File(context.getFilesDir(), "PetStatus.json")
